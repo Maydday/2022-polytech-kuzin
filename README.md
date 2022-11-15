@@ -1,6 +1,6 @@
 # 2022-polytech-kuzin
 ___студентик___
 '''
-MAYDER
+_MAYDER_
 '''
 > Aliis inserviendo consumor
