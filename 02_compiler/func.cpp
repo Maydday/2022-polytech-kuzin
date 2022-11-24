@@ -1,3 +1,5 @@
 #include <iostream>
 
-void print() { std::cout << "Hello, World!" << std::endl; }
+void print() {
+    std::cout << "Hello, World!" << std::endl;
+}
