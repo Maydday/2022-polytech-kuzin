@@ -2,7 +2,7 @@
 using namespace std;
 
 int main(){
-    int name;
+    string name;
     cout << "Enter your name: ";
     cin >> name; // Считываем полученное знаечение
     cout << "Hello, " << name;
