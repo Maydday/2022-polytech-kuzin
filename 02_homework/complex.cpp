@@ -1,13 +1,14 @@
 // Created by kuzir on 26.11.2022.
 //complex.cpp
 #include <iostream>
+
 double power_n(double d, unsigned n)
 {
     double x = 1.0;
-    for (int j = 1; j <= n; j++)
-    {
+    for (int j = 1; j <= n; j++) {
         x *= d;
     }
+
     return x;
 }
 int main()
