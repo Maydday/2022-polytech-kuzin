@@ -15,7 +15,36 @@ void fill_array_random(int arr[], int n, int a, int b)
 
 void print_array(int arr[], int n, bool show_index = false)
 {
-    // Напишите функцию
+    std::cout << "{";
+    if (show_index == true)
+    {
+        for (int x = 0; x < n; ++x)
+        {
+            if (x!=n-1)
+            {
+                std::cout << x << ": " << arr[x] << ", ";
+            }
+        }
+        else
+        {
+            std::cout << x << ": " << arr[x];
+        }
+    }
+    else
+    {
+        for (int x = 0; x<n; ++x)
+        {
+            if (x != n-1)
+            {
+                std::cout << arr[x] << ", ";
+            }
+        else
+            {
+            std::cout << arr[x];
+            }
+        }
+    }
+    std::cout << "}" << std::endl;
 }
 
 int main()
