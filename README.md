@@ -5,8 +5,6 @@ _MAYDER_
 '''
 > Aliis inserviendo consumor
 
-> `CFLAGS="-O3 -march=native -funroll-loops -fomg-optimize -pipe -fno-plt"`
-
 ### Sortong algorithms comparison
 
 |              | Quicksort     | Selection sort                     |
