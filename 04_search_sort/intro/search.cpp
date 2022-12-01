@@ -1,6 +1,4 @@
 #include <iostream>
-#include <ctime>
-
 using namespace std;
 
 int linesearch(int arr[], int n, int key)
@@ -40,6 +38,6 @@ int main()
                     740, 766, 780, 782, 794, 802, 829, 832, 837, 858, 875, 881, 882, 883, 883, 947, 959};
     int n = sizeof(mas) / sizeof(mas[0]);
     cout << doublesearch(mas, 0, n - 1, 120) << endl;
-    cout << clock() / 1000.0;
+
 
 }

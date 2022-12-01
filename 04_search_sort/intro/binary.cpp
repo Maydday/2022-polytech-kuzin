@@ -1,10 +1,10 @@
-// Created by kuzir on 27.11.2022.
 int binary_search(const int sequence[], const int num, const int high,
                   const int low) {
     const int mid = (high + low) / 2;
     if (high == low) {
         return -1;
     }
+    // пишем алгоритм бинарного поиска
     if (sequence[mid] < num) {
         return binary_search(sequence, num, high, mid);
     } else if (sequence[mid] > num) {
@@ -15,6 +15,7 @@ int binary_search(const int sequence[], const int num, const int high,
 }
 
 int main() {
+
     const int sequence[] = {
             -996, -960, -944, -887, -865, -860, -846, -831, -790, -785, -700, -691,
             -662, -662, -647, -640, -587, -532, -524, -519, -501, -497, -475, -471,
@@ -25,9 +26,9 @@ int main() {
             546,  584,  595,  596,  606,  627,  636,  666,  666,  683,  701,  740,
             766,  780,  782,  794,  802,  829,  832,  837,  858,  875,  881,  882,
             883,  883,  947,  959};
+// sizeof() - Возвращает размер операнда относительно размера типа char(32 бит)
+// sizeof(array[0]) =  размер одного элемента массива array
+    const int a = sizeof(sequence) / sizeof(sequence[0]);
 
-    const int len = sizeof(sequence) / sizeof(sequence[0]);
-
-    // 57 - индекс искомого элемента
-    return binary_search(sequence, 120, len, 0) - 57;
+    return binary_search (sequence, 120, a, 0) ;
 }
