@@ -15,8 +15,10 @@ void fill_array_random(int arr[], int n, int a, int b)
 
 void print_array(int arr[], int n, bool show_index = false)
 {
+    // Напишите функцию
     std::cout << "{";
-    if (show_index == true) // true выводит массив через запятую false выводит массив с "нумерацией"
+                            // show_index == false выводит массив с "нумерацией"
+    if (show_index == true) // show_index == true выводит массив через запятую
     {
         for (int x = 0; x < n; ++x)
         {
