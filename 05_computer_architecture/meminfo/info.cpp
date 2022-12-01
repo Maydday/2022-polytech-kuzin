@@ -1,35 +1,39 @@
 #include <iostream>
 #include <fstream>
+#include <cmath>
 
-using namespace std;
-
-int main()
+void show_meminfo()
 {
     char parameter[20];
     int value;
     char unit[3];
-    double memory[2];
+    int total, free, avail;
 
-    ifstream in("/proc/meminfo", std::ios_base::in);
-    for(int i = 0; i < 2; i++)
-    {
-        in >> parameter >> value >> unit;
-        memory[i] = value;
-        cout << memory[i] << endl;
+    std::ifstream in("/proc/meminfo", std::ios_base::in);
+    if(in.is_open()) {
+        in >> parameter >> total >> unit;
+        in >> parameter >> free >> unit;
+        in >> parameter >> avail >> unit;
+    } else {
+        exit(1);
     }
-    double p = memory[1] / memory[0];
-    int percentage = p * 100;
-    for (int i = 0; i < percentage; i++)
-    {
-        cout << (char)64;
-    }
-    for (int i = 0; i < (100 - percentage); i++)
-    {
-        cout << (char)46;
-    }
-    cout << " " << percentage << "%" << endl;
+
+    float percent = (total - avail) / static_cast<float>(total) * 100;
+    short bars_count = round(percent/10);
+
+    for (int i = 0; i != bars_count; ++i)
+        std::cout << "|";
+    for (int i = 0; i != 10 - bars_count; ++i)
+        std::cout << ".";
+    std::cout << " " << static_cast<int>(percent) << "%" << std::endl;
+}
+
+int main()
+{
+    show_meminfo();
     return 0;
+}
 
-} // В C++ Shell программа работает и выводит 21392
+// В C++ Shell программа работает и выводит:
 //21392
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 100%
