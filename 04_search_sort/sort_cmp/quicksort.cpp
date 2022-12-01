@@ -1,4 +1,4 @@
-#include <iostream>
+#include "sort.h"
 
 void swap(int arr[], int idx_a, int idx_b){
     int temp = arr[idx_a];
@@ -10,6 +10,7 @@ void swap(int arr[], int idx_a, int idx_b){
 int partition(int arr[], int start, int end)
 {
 
+    // выбор 'опорного' элемента
     int pivot = arr[start];
 
     int count = 0;

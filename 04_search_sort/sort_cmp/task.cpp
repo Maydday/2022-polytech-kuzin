@@ -1,40 +1,108 @@
-#include <omp.h> // OpenMP,
-#include "sort.h"
+#include <chrono>
+#include <cstdio>
 #include <iostream>
+#include <random>
 
-int main()
-{
-    double start1;
-    double start2;
-    double end1;
-    double end2;
-    while (true)
-    {
-        int n = 0;
-        cout << "Размер:" << endl;
-        cin >> n;
-        int *arr = new int [n];
+void fill_array_random(int arr[], int n, int a, int b);
+void selection_sort(int arr[], int n);
+void quick_sort(int arr[], int lo, int hi);
+int partition(int arr[], int lo, int hi);
+int *swap(int arr[], int what, int with);
 
-        fill_random(arr,n,0,100);
-        start1 = omp_get_wtime();
-        sort (arr,n);
+int main() {
+    //longlong - 64бит
+    long long int help[] = {
+            10,
+            100,
+            1000,
+            1000000, // уже слишком долго, дальше не считаем
+            1000000000,
+            1000000000000
+    };
 
-        end1 = omp_get_wtime();
-        double time1 = end1 - start1;
+    for (int i = 0; i != 5; ++i) {
 
-        cout << n << ":" << time1 << " (ss)";
+        auto n = help[i];
 
-        fill_random(arr, n, 0, 100);
+        int arr1[n], arr2[n];
 
-        start2 = omp_get_wtime();
+        fill_array_random(arr1, n, 0, 10000);
+        //Функция 'memcpy' копирует num байтов первого блока памяти, на который ссылается указатель srcptr, во второй блок памяти, на который ссылается указатель destptr.
+        memcpy(arr2, arr1, n * sizeof(int));
 
-        quick_sort(arr, 0, n - 1);
+        auto t1 = std::chrono::high_resolution_clock::now();
+        selection_sort(arr1, n);
+        auto t2 = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double, std::milli> ss_ms = t2 - t1;
 
-        end2 = omp_get_wtime();
-        double time2 = end2 - start2;
+        t1 = std::chrono::high_resolution_clock::now();
+        quick_sort(arr2, 0, n - 1);
+        t2 = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double, std::milli> qs_ms = t2 - t1;
 
-        cout << ", " << time2 << " (qs)" << endl;
-        delete[] arr;
+        std::printf("%.0e: %.5f (ss), %.5f (qs)\n",
+                    static_cast<double>(n),
+                    ss_ms.count(),
+                    qs_ms.count());
     }
     return 0;
+}
+
+void fill_array_random(int arr[], int n, int a, int b) {
+    std::random_device dev;
+    // mt19937 - random number generator
+    std::mt19937 rng(dev());
+    // Класс uniform_int_distribution формирует равномерное распределение целых чисел в выходном инклюзивно (1-n) -эксклюзивном (1- (n-1)) диапазоне
+    std::uniform_int_distribution<std::mt19937::result_type> dist(a, b);
+
+    for (int i = 0; i < n; ++i) {
+        arr[i] = dist(rng);
+    }
+}
+
+void selection_sort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        int jmin = i;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] < arr[jmin]) {
+                jmin = j;
+            }
+        }
+        if (jmin != i) {
+            swap(arr, i, jmin);
+        }
+    }
+}
+
+void quick_sort(int arr[], int lo, int hi) {
+    // || - Логическое ИЛИ
+    if (lo >= hi || lo < 0) {
+        return;
+    }
+
+    int p = partition(arr, lo, hi);
+    quick_sort(arr, lo, p - 1);
+    quick_sort(arr, p + 1, hi);
+}
+
+// разделение
+int partition(int arr[], int lo, int hi) {
+    int pivot = arr[hi];
+    int i = lo - 1;
+    for (int j = lo; j <= hi - 1; ++j) {
+        if (arr[j] <= pivot) {
+            i++;
+            swap(arr, i, j);
+        }
+    }
+    i++;
+    swap(arr, i, hi);
+    return i;
+}
+
+int *swap(int arr[], int what, int with) {
+    int tmp = arr[what];
+    arr[what] = arr[with];
+    arr[with] = tmp;
+    return arr;
 }
