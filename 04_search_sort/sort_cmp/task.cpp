@@ -1,4 +1,4 @@
-#include <omp.h>
+#include <omp.h> // OpenMP,
 #include "sort.h"
 #include <iostream>
 
