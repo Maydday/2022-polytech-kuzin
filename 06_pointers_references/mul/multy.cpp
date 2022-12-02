@@ -52,21 +52,3 @@ int main() {
   assert(strcmp(mul("99", "99"), "9801") == 0);
   return 0;
 }
-    return (const char *)arr;
-}
-
-const char *mul(const char *fst, const char *snd) {
-    int fsti = 0, sndi = 0;
-    for (int i = 0, mult = 1; i != length(fst); ++i, mult *= 10)
-        fsti += (fst[i] - '0') * mult;
-    for (int i = 0, mult = 1; i != length(snd); ++i, mult *= 10)
-        sndi += (snd[i] - '0') * mult;
-    return itos((fsti * sndi));
-}
-
-int main() {
-    assert(strcmp(mul("14", "2"), "28") == 0);
-    assert(strcmp(mul("0", "8"), "0") == 0);
-    assert(strcmp(mul("22", "88"), "1936") == 0);
-    return 0;
-}
