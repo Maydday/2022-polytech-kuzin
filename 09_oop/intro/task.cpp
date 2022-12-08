@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 
 struct Person {
     Person() { std::cout << "Person::ctor" << std::endl; }
@@ -7,23 +6,22 @@ struct Person {
     std::string name{};
 };
 
-struct Student : virtual public Person {
+struct Student : Person {
     Student() { std::cout << "Student::ctor" << std::endl; }
     ~Student() { std::cout << "Student::dtor" << std::endl; }
     int score{};
 };
 
-struct Teacher : virtual public Person {
+struct Teacher : Person {
     Teacher() { std::cout << "Teacher::ctor" << std::endl; }
     ~Teacher() { std::cout << "Teacher::dtor" << std::endl; }
 };
 
-struct TS : Teacher, Student {};
+struct TA : Teacher, Student {};
 
 int main() {
-    TS ts;
-    ts.score = 5.0;
-    // ta.name = "Da Sha";
+    TA ta;
+    ta.score = 5.0;
 
     return 0;
 }
