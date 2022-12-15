@@ -10,7 +10,7 @@ auto example_sl() -> StudentList {
     return sl;
 }
 
-TEST_CASE("yo") {
+TEST_CASE("hi") {
 CHECK_EQ(Student{"subject", 10}, Student{"subject", 10});
 
 CHECK_EQ(example_sl()

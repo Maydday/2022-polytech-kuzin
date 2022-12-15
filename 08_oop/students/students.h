@@ -110,7 +110,7 @@ public:
     }
 
 public:
-    /// Append `Student` object to students array
+    /// добавим `Student` в массив students
     StudentList &append(Student &stud) {
         _size++;
         auto tmp = new Student[_size];
@@ -126,17 +126,17 @@ public:
         return this->append(stud);
     }
 
-    /// Remove first occurance of student in students array
+    /// Удалить первое появление student в массиве students
     StudentList &remove(const char *n) { return _remove(n); }
     StudentList &remove(Student &s) { return _remove(s.name); }
 
-    /// Set score of student
+    /// установить балл студента
     StudentList &set_score(const char *n, int ns) { return _set_score(n, ns); }
     StudentList &set_score(Student &sl, int ns) {
         return _set_score(sl.name, ns);
     }
 
-    /// Get average score of students
+    /// сосчитать средний балл студента
     double get_avg_score() const {
         double score_sum = 0;
         for (std::size_t i = 0; i < _size; ++i) {
@@ -153,7 +153,7 @@ public:
         return Student{};
     }
 
-    /// Get array of students with score >6
+    /// Получить массив студентов с результатом >6
     StudentList get_best_students() const {
         StudentList best_students{};
         for (std::size_t i = 0; i < _size; ++i) {
@@ -163,7 +163,7 @@ public:
         return best_students;
     }
 
-    /// Get array of students with score <4
+    /// Получите массив студентов со счетом <4
     StudentList get_worst_students() const {
         StudentList worst_students{};
         for (std::size_t i = 0; i < _size; ++i) {
