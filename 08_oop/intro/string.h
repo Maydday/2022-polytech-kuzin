@@ -1,5 +1,6 @@
 #include <iostream>
 
+// создаём свой тип данных
 class String {
 private:
     unsigned int length;

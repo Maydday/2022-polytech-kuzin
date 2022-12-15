@@ -2,7 +2,7 @@
 #include <cstring>
 #include <iostream>
 
-String :: String (const char *s) {
+String::String(const char *s) {
     length = strlen(s);
     data = (char *)malloc(length);
     strcpy(data, s);
