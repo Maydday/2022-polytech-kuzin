@@ -1,32 +1,25 @@
-#ifndef JSON_HPP
-#define JSON_HPP
-
 #include <iostream>
 #include <string>
 #include <unordered_map>
 
-struct IJsonToken {
+struct BasicToken {
     std::string value;
 };
 
-struct JsonString : public IJsonToken {
-    JsonString(std::string s) { value = '"' + s + '"'; }
+struct StringToken : public BasicToken {
+    StringToken(std::string s) { value = '"' + s + '"'; }
 };
-
-struct JsonNumber : IJsonToken {
-    template <typename T> JsonNumber(T i) { value = std::to_string(i); }
+struct NumToken : BasicToken {
+    template <typename T> NumToken(T i) { value = std::to_string(i); }
 };
-
-struct JsonBool : IJsonToken {
-    JsonBool(bool b) { value = b ? "true" : "false"; }
+struct BoolToken : BasicToken {
+    BoolToken(bool b) { value = b ? "true" : "false"; }
 };
-
-struct JsonArray : IJsonToken {
-    JsonArray(std::initializer_list<IJsonToken> v) {
+struct ArrayToken : BasicToken {
+    ArrayToken(std::initializer_list<BasicToken> v) {
         value = "[";
         for (std::size_t i = 1; auto s : v) {
             value.append(s.value);
-            // i hate it
             if (i != v.size()) {
                 value.append(",");
                 i++;
@@ -37,13 +30,9 @@ struct JsonArray : IJsonToken {
 };
 
 struct Json {
-    std::unordered_map<std::string, IJsonToken> tokens = {};
+    std::unordered_map<std::string, BasicToken> tokens;
 
-    Json(std::initializer_list<std::pair<std::string, IJsonToken>> il) {
-        for (auto it : il)
-            tokens.insert_or_assign(it.first, it.second);
-    }
-
+    Json(std::unordered_map<std::string, BasicToken> j) { tokens = j; }
     std::string serialize() {
         std::string out = "{";
         for (std::size_t i = 1; const auto &elem : tokens) {
@@ -57,5 +46,3 @@ struct Json {
         return out;
     }
 };
-
-#endif
