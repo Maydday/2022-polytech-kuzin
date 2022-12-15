@@ -1,3 +1,6 @@
+#ifndef STUDENTS_HPP
+#define STUDENTS_HPP
+
 #include <cstring>
 #include <initializer_list>
 #include <iostream>
@@ -11,11 +14,11 @@ struct Student {
         return out;
     }
 
-    const bool operator==(const Student &s) const {
+    bool operator==(const Student &s) const {
         return !(std::strcmp(name, s.name)) && score == s.score;
     }
 
-    const bool operator!=(const Student &s) const { return !(*this == s); }
+    bool operator!=(const Student &s) const { return !(*this == s); }
 };
 
 class StudentList {
@@ -99,7 +102,7 @@ public:
         return out;
     }
 
-    const bool operator==(const StudentList &sl) const {
+    bool operator==(const StudentList &sl) const {
         if (sl._size != _size)
             return false;
         for (std::size_t i = 0; i != _size; ++i) {
@@ -110,14 +113,14 @@ public:
     }
 
 public:
-    /// добавим `Student` в массив students
+    /// Append `Student` object to students array
     StudentList &append(Student &stud) {
         _size++;
         auto tmp = new Student[_size];
         for (std::size_t i = 0; i < _size - 1; ++i)
             tmp[i] = _stud[i];
         tmp[_size - 1] = stud;
-        delete[] _stud;
+        // delete[] _stud;
         _stud = tmp;
         return *this;
     }
@@ -126,17 +129,17 @@ public:
         return this->append(stud);
     }
 
-    /// Удалить первое появление student в массиве students
+    /// Remove first occurance of student in students array
     StudentList &remove(const char *n) { return _remove(n); }
     StudentList &remove(Student &s) { return _remove(s.name); }
 
-    /// установить балл студента
+    /// Set score of student
     StudentList &set_score(const char *n, int ns) { return _set_score(n, ns); }
     StudentList &set_score(Student &sl, int ns) {
         return _set_score(sl.name, ns);
     }
 
-    /// сосчитать средний балл студента
+    /// Get average score of students
     double get_avg_score() const {
         double score_sum = 0;
         for (std::size_t i = 0; i < _size; ++i) {
@@ -153,23 +156,25 @@ public:
         return Student{};
     }
 
-    /// Получить массив студентов с результатом >6
+    /// Get array of students with score >6
     StudentList get_best_students() const {
         StudentList best_students{};
         for (std::size_t i = 0; i < _size; ++i) {
             if (_stud[i].score > 6)
-                best_students.append(_stud[i]);
+                best_students.append(_stud[i]); // ub
         }
         return best_students;
     }
 
-    /// Получите массив студентов со счетом <4
+    /// Get array of students with score <4
     StudentList get_worst_students() const {
         StudentList worst_students{};
         for (std::size_t i = 0; i < _size; ++i) {
             if (_stud[i].score < 4)
-                worst_students.append(_stud[i]);
+                worst_students.append(_stud[i]); // ub
         }
         return worst_students;
     }
 };
+
+#endif
